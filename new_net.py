@@ -1,4 +1,5 @@
 import numpy as np
+import sys
 from keras.datasets import mnist
 from keras.models import Sequential
 from keras.layers import Dense, Conv2D, Flatten,MaxPooling2D,Dropout
@@ -8,7 +9,6 @@ from matplotlib import pyplot as plt
 from matplotlib import gridspec
 import dset
 import models
-import sys
 
 image_fn = sys.argv[1]
 labels_fn = sys.argv[2]

@@ -4,9 +4,11 @@ from keras.models import load_model
 
 from matplotlib import pyplot as plt
 from matplotlib import gridspec
+
+import sys
+
 import dset
 import models
-import sys
 
 image_fn = sys.argv[1]
 model_name = sys.argv[2]
@@ -20,20 +22,17 @@ ratio = 0.9
 image = dset.read_image(image_fn)
 X_train,X_test = dset.setup_dataset(image,ratio,shuffle=False)
 X_data = np.append(X_train,X_test,axis=0)
-print(X_data.shape)
 
 model = load_model(f'./models/{model_name}.hdf5')
 
 #classify new image
 predictions = np.argmax(model.predict(X_data),axis=1)
-print(predictions.shape)
 
 #reshape to output square grid
 outshape = np.array([np.sqrt(len(predictions)),np.sqrt(len(predictions))]).astype(int)
 predictions = predictions.reshape(outshape)
 #convert to RGB with white as glare tiles
 predictions = (np.tile(predictions[:,:,None],(1,1,3))*255).astype(int)
-print(predictions.shape)
 
 np.save(f'./predictions_{model_name}_{suffix}.npy',predictions)
 

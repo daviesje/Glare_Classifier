@@ -6,9 +6,10 @@ from keras.utils import to_categorical
 
 from matplotlib import pyplot as plt
 from matplotlib import gridspec
+import sys
+
 import dset
 import models
-import sys
 
 image_fn = sys.argv[1]
 labels_fn = sys.argv[2]
